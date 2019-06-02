@@ -1,0 +1,9 @@
+﻿#pragma kernel main
+
+RWTexture2D<float4> output;
+float2 resolution;
+
+[numthreads(1, 1, 1)]
+void main(uint3 position : SV_DispatchThreadID) {
+	output[position.xy] = float4(position.x / resolution.x, position.y / resolution.y, 0.0, 1.0);
+}

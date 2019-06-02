@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d06c7c53b116d5349a3a5d0f0cf6b92d, type: 3}
+  m_Name: GridModule
+  m_EditorClassIdentifier: 
+  ModuleShader: {fileID: 7200000, guid: ddcb75896b6d5094690ec545551ae4fc, type: 3}
+  KernelName: main
+  RenderTextureField: output
+  ResolutionField: resolution
+  GridColor: {r: 0.50980395, g: 0.50980395, b: 0.50980395, a: 1}
+  ColorField: gridColor
+  GridAnchor: {x: 0, y: 0.5}
+  GridAnchorField: gridAnchor
+  GridScale: 4
+  GridScaleField: gridScale

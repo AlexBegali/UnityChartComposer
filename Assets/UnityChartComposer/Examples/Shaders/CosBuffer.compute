@@ -1,0 +1,33 @@
+﻿#pragma kernel main
+
+RWTexture2D<float4> output;
+float2 resolution;
+
+float4 chartColor;
+float lineThickness;
+
+RWStructuredBuffer<float> dataBuffer;
+
+float distance(float2 ba, float2 pa) {
+	float u = clamp(dot(ba, pa) / dot(ba, ba), 0.0, 1.0);
+	return length(pa - u * ba);
+}
+
+float3 mix_colors(float3 bg, float3 fg, float dist, float alpha) {
+	float d = smoothstep(0.0, 0.75, dist);
+	return lerp(bg, fg, alpha * (1.0 - d));
+}
+
+[numthreads(1, 1, 1)]
+void main(uint3 position : SV_DispatchThreadID) {
+	if (position.x == resolution.x) return;
+
+	lineThickness /= max(resolution.x, resolution.y);
+	float2 uv = position.xy / resolution.xy;
+
+	float2 p0 = float2(position.x / resolution.x, (cos(dataBuffer[position.x]) + 1.0) * 0.5);
+	float2 p1 = float2((position.x + 1.0) / resolution.x, (cos(dataBuffer[position.x + 1]) + 1.0) * 0.5);
+	float d_stretch = min(1e5, distance(p1 - p0, uv - p0) / lineThickness);
+
+	output[position.xy] = float4(mix_colors(output[position.xy], chartColor, d_stretch, 1.0), 1.0);
+}
