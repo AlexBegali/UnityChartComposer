@@ -22,3 +22,5 @@ MonoBehaviour:
   GridAnchorField: gridAnchor
   GridScale: 4
   GridScaleField: gridScale
+  GridThickness: 1
+  GridThicknessField: gridThickness

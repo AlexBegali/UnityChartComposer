@@ -17,9 +17,14 @@ namespace ChartModuleSystem.Modules
         public float GridScale;
         public string GridScaleField;
 
+        [Space]
+        public float GridThickness;
+        public string GridThicknessField;
+
         private Color ActualColor;
         private Vector2 ActualAnchor;
         private float ActualScale;
+        private float ActualThickness;
 
         void IModule.Initialize()
         {
@@ -32,6 +37,7 @@ namespace ChartModuleSystem.Modules
             ModuleShader.SetVector(ColorField, ActualColor);
             ModuleShader.SetFloats(GridAnchorField, ActualAnchor.x, ActualAnchor.y);
             ModuleShader.SetFloat(GridScaleField, ActualScale);
+            ModuleShader.SetFloat(GridThicknessField, GridThickness);
         }
 
         protected override void CreateComputeBuffer()
@@ -59,6 +65,14 @@ namespace ChartModuleSystem.Modules
 
                 ActualScale = GridScale;
                 ModuleShader.SetFloat(GridScaleField, ActualScale);
+            }
+
+            if (ActualThickness != GridThickness)
+            {
+                if (GridThickness < 0) GridThickness = 0;
+
+                ActualThickness = GridThickness;
+                ModuleShader.SetFloat(GridThicknessField, GridThickness);
             }
 
             ModuleShader.Dispatch(KernelIndex, Resolution.x, Resolution.y, 1);
